@@ -4,26 +4,36 @@
 import * as React from 'react'
 import '../box-styles.css'
 
-// 🐨 add a className prop to each div and apply the correct class names
-// based on the text content
-// 💰 Here are the available class names: box, box--large, box--medium, box--small
-// 💰 each of the elements should have the "box" className applied
+// Box needs to render a div, accept a className and style props(where style can have backgroundColor and fontStyle)
 
-// 🐨 add a style prop to each div so their background color
-// matches what the text says it should be
-// 🐨 also use the style prop to make the font italic
-// 💰 Here are available style attributes: backgroundColor, fontStyle
+function Box({size, className = '', style, ...otherProps}) {
+  const sizeClassName = size ? `box--${size}` : ''
+  return (
+    <div
+      className={`box ${sizeClassName}`}
+      style={{fontStyle: 'italic', ...style}} //merge these objects together, because we want italics AND the appropriate background color
+      {...otherProps} // => {children: 'small lightblue box'}
+    />
+  )
+}
 
-const smallBox = <div>small lightblue box</div>
-const mediumBox = <div>medium pink box</div>
-const largeBox = <div>large orange box</div>
+// destructuring className from the props, and calling the rest of the props (the styles) "...otherProps" for now
+// returning a div where the className is interpolated from the functions below, and the appropriate styles,
+// (like fontStyle and backgroundColor) represented by "...otherProps" still apply
 
 function App() {
   return (
     <div>
-      {smallBox}
-      {mediumBox}
-      {largeBox}
+      <Box size='small' style={{backgroundColor: 'lightblue'}}>
+        small lightblue box
+      </Box>
+      <Box size='medium' style={{backgroundColor: 'pink'}}>
+        medium pink box
+      </Box>
+      <Box size='large' style={{backgroundColor: 'orange'}}>
+        large orange box
+      </Box>
+      <Box>sizeless box</Box>
     </div>
   )
 }
