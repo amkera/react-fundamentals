@@ -4,12 +4,11 @@
 import * as React from 'react'
 
 function UsernameForm({onSubmitUsername}) {
-  const usernameInputRef = React.useRef()
   const [username, setUsername] = React.useState()
 
   function handleSubmit(event) {
     event.preventDefault()
-    onSubmitUsername(usernameInputRef.current.value)
+    onSubmitUsername(username)
   }
 
   function handleChange(event) {
